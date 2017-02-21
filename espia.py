@@ -5,13 +5,13 @@ from dialog import Dialog   #ui
 import socket                #UPD out
 import socketserver          #TCP in
 import pygame
+from _thread import start_new_thread
 
- 
 
 UDP_IP = "192.168.0.15"      # IP of PC
 UDP_PORT = 7016              #  port in max
 MESSAGE = "prueba superada"  # temporal, message to send
-TCP_HOST = "192.168.0.17"    # IP de Raspberry Pi 
+TCP_HOST = "192.168.0.19"    # IP de Raspberry Pi 
 TCP_PORT =  9999             # Puerto en Raspberry Pi
 
 zapatofono = ("/media/pi/D09D-60B6/japanese.wav")
@@ -23,7 +23,7 @@ black = 0, 0, 0
 pygame.init()
 screen = pygame.display.set_mode(resolution, pygame.FULLSCREEN)
 pygame.mouse.set_visible(0)
-screen.fill(black)
+# screen.fill(black)
 pygame.mixer.init()
 zapato = pygame.mixer.Sound(zapatofono)
 
@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
 
     # You may want to use 'autowidgetsize=True' here (requires pythondialog >= 3.1)
-    d = Dialog(dialog="dialog")
+    d = Dialog(dialog="dialog" , autowidgetsize=True)
     # Dialog.set_background_title() requires pythondialog 2.13 or later
     d.set_background_title("My little program")
 
@@ -92,7 +92,10 @@ if __name__ == "__main__":
 
     # Activate the server; this will keep running until you
     # interrupt the program with Ctrl-C
+    # sart_new_thread(server.serve_forever())
     server.serve_forever()
+
+    print("haciendo otras cosas too")
 
     if d.yesno("Presione OK para ganar") == d.OK:
         d.msgbox("You have been warned...")
