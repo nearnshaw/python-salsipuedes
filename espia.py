@@ -117,12 +117,15 @@ def rec_UDP():
 
 def reset_all():
     # para poder usar variable localmente hay que decirle esto
-    global zapatofono, zapato, english, pasaporte, password, retina, playing
+    global zapatofono, zapato, english, pasaporte, password, retina, playing, d
 
     english = False
     zapatofono = ("/home/pi/Documents/salsipuedes/audio/esp.wav") # ("/media/pi/D09D-60B6/esp.wav")    
     retina = False
+    playing = False
     pygame.mixer.pause()
+    zapato.stop()
+    d.clear()               #dice metodo deprecated   http://pythondialog.sourceforge.net/doc/Dialog_class_overview.html#obsolete-methods
     print("did reset")
 
 
@@ -192,7 +195,7 @@ signal.signal(signal.SIGINT, end_read)
 
 print("Starting")
 while run:
-    global zapatofono, zapato, english, pasaporte, password, retina, audio_player
+    global zapatofono, zapato, english, pasaporte, password, retina, audio_player, playing
     
     (error, data) = rdr.request()
     if not error:
